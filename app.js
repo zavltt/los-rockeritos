@@ -320,4 +320,119 @@ function renderAdminTable() {
             <td>${product.category}</td>
             <td>
                 <button class="btn-edit" data-id="${product.id}">Editar</button>
-                <button class="btn-delete" data-id="${product.id}">Eliminar
+                <button class="btn-delete" data-id="${product.id}">Eliminar</button>
+            </td>
+        `;
+        adminTableBody.appendChild(row);
+    });
+    
+    // Event listeners para la tabla de admin
+    document.querySelectorAll('#adminTableBody .btn-edit').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = parseInt(this.getAttribute('data-id'));
+            editProduct(productId);
+        });
+    });
+    
+    document.querySelectorAll('#adminTableBody .btn-delete').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = parseInt(this.getAttribute('data-id'));
+            deleteProduct(productId);
+        });
+    });
+}
+
+// Mostrar formulario para agregar producto
+function showAddProductForm() {
+    const name = prompt('Nombre del producto:');
+    if (!name) return;
+    
+    const description = prompt('Descripción del producto:');
+    if (!description) return;
+    
+    const price = parseFloat(prompt('Precio del producto:'));
+    if (isNaN(price)) return;
+    
+    const category = prompt('Categoría del producto:');
+    if (!category) return;
+    
+    const stock = parseInt(prompt('Stock disponible:'));
+    if (isNaN(stock)) return;
+    
+    const icon = prompt('Icono (emoji) para el producto:');
+    
+    const newProduct = {
+        id: Math.max(...productsData.map(p => p.id)) + 1,
+        name,
+        description,
+        price,
+        category,
+        stock,
+        icon: icon || '🍽️'
+    };
+    
+    productsData.push(newProduct);
+    renderProducts();
+    renderAdminTable();
+    showMessage('Producto agregado correctamente', 'success');
+}
+
+// Editar producto
+function editProduct(productId) {
+    const product = productsData.find(p => p.id === productId);
+    
+    if (!product) return;
+    
+    const name = prompt('Nuevo nombre:', product.name);
+    if (!name) return;
+    
+    const description = prompt('Nueva descripción:', product.description);
+    if (!description) return;
+    
+    const price = parseFloat(prompt('Nuevo precio:', product.price));
+    if (isNaN(price)) return;
+    
+    const category = prompt('Nueva categoría:', product.category);
+    if (!category) return;
+    
+    const stock = parseInt(prompt('Nuevo stock:', product.stock));
+    if (isNaN(stock)) return;
+    
+    const icon = prompt('Nuevo icono:', product.icon);
+    
+    // Actualizar producto
+    product.name = name;
+    product.description = description;
+    product.price = price;
+    product.category = category;
+    product.stock = stock;
+    product.icon = icon || product.icon;
+    
+    renderProducts();
+    renderAdminTable();
+    showMessage('Producto actualizado correctamente', 'success');
+}
+
+// Eliminar producto
+function deleteProduct(productId) {
+    if (confirm('¿Está seguro de que desea eliminar este producto?')) {
+        productsData = productsData.filter(p => p.id !== productId);
+        renderProducts();
+        renderAdminTable();
+        showMessage('Producto eliminado correctamente', 'success');
+    }
+}
+
+// Refrescar productos
+function refreshProducts() {
+    renderProducts();
+    renderAdminTable();
+    showMessage('Lista de productos actualizada', 'success');
+}
+
+// Función auxiliar para desplazamiento suave
+function scrollToSection(sectionId) {
+    document.getElementById(sectionId).scrollIntoView({
+        behavior: 'smooth'
+    });
+}
