@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Rockeritos - Pupusería y Cafetería</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">🍽️</span>
+                <h1>Los Rockeritos</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#menu">Menú</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="user-controls">
+                <button id="loginBtn" class="btn btn-primary">Iniciar Sesión</button>
+                <button id="cartBtn" class="btn btn-secondary">🛒 Carrito (<span id="cartCount">0</span>)</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Tipo de usuario:</label>
+                    <select id="role" required>
+                        <option value="">Seleccionar rol</option>
+                        <option value="comprador">Comprador</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+            </form>
+            <div id="loginMessage" class="message hidden"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section id="inicio" class="hero">
+            <h2>Bienvenidos a Los Rockeritos</h2>
+            <p>Disfruta de las mejores pupusas, licuados, almuerzos, pan dulce, café y mucho más en un ambiente cálido y acogedor.</p>
+            <button class="btn btn-primary" onclick="scrollToSection('menu')">Ver Menú</button>
+        </section>
+
+        <!-- Products Section -->
+        <section id="menu">
+            <h2 class="section-title">Nuestro Menú</h2>
+            <div class="products-grid" id="productsContainer">
+                <!-- Los productos se cargarán dinámicamente aquí -->
+            </div>
+        </section>
+
+        <!-- Admin Panel (solo visible para administradores) -->
+        <section id="adminPanel" class="admin-panel hidden">
+            <h2 class="section-title">Panel de Administración</h2>
+            <div class="admin-controls">
+                <button id="addProductBtn" class="btn btn-primary">Agregar Producto</button>
+                <button id="refreshProductsBtn" class="btn btn-secondary">Actualizar Lista</button>
+            </div>
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody">
+                        <!-- Los productos para administración se cargarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Shopping Cart (solo visible para compradores) -->
+        <section id="cartPanel" class="cart-panel hidden">
+            <h2 class="section-title">Tu Carrito de Compras</h2>
+            <div class="cart-items" id="cartItems">
+                <!-- Los productos del carrito se cargarán aquí -->
+            </div>
+            <div class="cart-total">
+                Total: $<span id="cartTotal">0.00</span>
+            </div>
+            <button class="checkout-btn">Proceder al Pago</button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Los Rockeritos</h3>
+                <p>Tu lugar favorito para disfrutar de auténtica comida salvadoreña en un ambiente cálido y familiar.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horario de Atención</h3>
+                <p>Lunes a Viernes: 7:00 AM - 9:00 PM</p>
+                <p>Sábados y Domingos: 8:00 AM - 10:00 PM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📍 Dirección: Calle Principal #123</p>
+                <p>📞 Teléfono: (503) 1234-5678</p>
+                <p>✉️ Email: info@losrockeritos.com</p>
+            </div>
+        </div>
+        <div class="social-icons">
+            <a href="#" class="social-icon">📘</a>
+            <a href="#" class="social-icon">📷</a>
+            <a href="#" class="social-icon">🐦</a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Los Rockeritos. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="products.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
